@@ -10,6 +10,7 @@ public class CrearProductoDTO {
     public String titulo;
     public String imagenUrl;
     public String descripcion;
-    public String precio;
+    public Float precio;
     public Integer unidades;
+    public Integer marca_id;
 }

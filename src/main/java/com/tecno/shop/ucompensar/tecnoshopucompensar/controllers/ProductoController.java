@@ -1,4 +1,5 @@
 package com.tecno.shop.ucompensar.tecnoshopucompensar.controllers;
+import com.tecno.shop.ucompensar.tecnoshopucompensar.DTOS.ActualizarProductoDTO;
 import com.tecno.shop.ucompensar.tecnoshopucompensar.DTOS.CrearProductoDTO;
 import com.tecno.shop.ucompensar.tecnoshopucompensar.models.Producto;
 import com.tecno.shop.ucompensar.tecnoshopucompensar.services.ProductoService;
@@ -6,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/producto")
 public class ProductoController {
@@ -25,5 +27,10 @@ public class ProductoController {
     @DeleteMapping("/{id}")
     void borrarProductoId( @PathVariable("id") Integer productoId){
         this.productoService.borrarProductoId(productoId);
+    }
+
+    @PutMapping
+    Producto actualizarProducto(@RequestBody ActualizarProductoDTO productoDTO){
+       return this.productoService.actualizarProducto(productoDTO);
     }
 }

@@ -12,5 +12,5 @@ public class CrearProductoDTO {
     public String descripcion;
     public Float precio;
     public Integer unidades;
-    public Integer marca_id;
+    public Integer marcaId;
 }

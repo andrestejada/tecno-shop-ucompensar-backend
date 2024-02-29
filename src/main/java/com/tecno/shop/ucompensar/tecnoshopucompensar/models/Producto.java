@@ -15,14 +15,19 @@ public class Producto {
     @Id
     @GeneratedValue
     private Integer id;
+
     @Column(nullable = false)
     private String titulo;
+
     @Column(nullable = false)
     private String imagenUrl;
+
     @Column(nullable = false)
     private String descripcion;
+
     @Column(nullable = false)
     private Float precio;
+
     @Column(nullable = false)
     private Integer unidades;
 

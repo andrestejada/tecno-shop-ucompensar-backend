@@ -1,5 +1,6 @@
 package com.tecno.shop.ucompensar.tecnoshopucompensar.services;
 
+import com.tecno.shop.ucompensar.tecnoshopucompensar.DTOS.ActualizarProductoDTO;
 import com.tecno.shop.ucompensar.tecnoshopucompensar.DTOS.CrearProductoDTO;
 import com.tecno.shop.ucompensar.tecnoshopucompensar.models.Marca;
 import com.tecno.shop.ucompensar.tecnoshopucompensar.models.Producto;
@@ -19,7 +20,7 @@ public class ProductoService {
     public Producto crearProducto(CrearProductoDTO producto){
         Producto productoGuardar = new Producto();
         Marca marca = new Marca();
-        marca.setId(producto.marca_id);
+        marca.setId(producto.marcaId);
         productoGuardar.setTitulo(producto.titulo);
         productoGuardar.setDescripcion(producto.descripcion);
         productoGuardar.setPrecio(producto.precio);
@@ -38,5 +39,25 @@ public class ProductoService {
 
     public void borrarProductoId(Integer productoId){
         this.productoRepository.deleteById(productoId);
+    }
+
+    public Producto actualizarProducto( ActualizarProductoDTO productoDTO) {
+        Producto productoExistente = this.productoRepository.findById(productoDTO.id)
+                .orElseThrow(() -> new RuntimeException("Producto no encontrado con el ID: " + productoDTO.id));
+
+        if(productoDTO.titulo != null) productoExistente.setTitulo(productoDTO.titulo);
+        if(productoDTO.descripcion != null) productoExistente.setDescripcion(productoDTO.descripcion);
+        if(productoDTO.precio != null) productoExistente.setPrecio(productoDTO.precio);
+        if(productoDTO.unidades != null) productoExistente.setUnidades(productoDTO.unidades);
+        if(productoDTO.imagenUrl != null) productoExistente.setImagenUrl(productoDTO.imagenUrl);
+
+        if(productoDTO.marcaId != null) {
+            Marca marca = new Marca();
+            marca.setId(productoDTO.marcaId);
+            productoExistente.setMarca(marca);
+        }
+        Producto productoActualizado = productoRepository.save(productoExistente);
+
+        return productoActualizado;
     }
 }

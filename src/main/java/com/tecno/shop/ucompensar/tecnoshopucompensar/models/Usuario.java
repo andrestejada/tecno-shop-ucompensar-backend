@@ -16,8 +16,13 @@ public class Usuario {
     @GeneratedValue
     private Integer id;
 
+    @Column(nullable = false)
     private String nombre;
+
+    @Column(nullable = false ,unique = true )
     private String correo;
+
+    @Column(nullable = false)
     private String password;
 
     @OneToMany

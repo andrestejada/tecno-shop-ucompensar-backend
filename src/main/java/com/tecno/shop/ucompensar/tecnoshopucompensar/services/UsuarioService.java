@@ -19,7 +19,7 @@ public class UsuarioService {
         return this.usuarioRepository.save(usuarioGuarda);
     }
 
-//    public Usuario obtenerUsuarioPorCorreo(String correo){
-//        return this.usuarioRepository.findBy(correo);
-//    }
+    public Usuario obtenerUsuarioPorCorreo(String correo){
+        return this.usuarioRepository.findByCorreo(correo);
+    }
 }

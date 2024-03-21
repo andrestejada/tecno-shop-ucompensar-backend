@@ -30,9 +30,9 @@ public class Usuario {
     @JoinColumn(name = "usuario_id")
     private List<Comentario> comentarios;
 
-    @OneToMany
+    /*@OneToMany
     @JoinColumn(name = "usuario_id")
-    private List<Producto> productos;
+    private List<Producto> productos;*/
 
 
 }

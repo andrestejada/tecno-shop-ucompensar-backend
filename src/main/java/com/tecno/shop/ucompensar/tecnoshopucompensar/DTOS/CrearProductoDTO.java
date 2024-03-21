@@ -13,4 +13,5 @@ public class CrearProductoDTO {
     public Float precio;
     public Integer unidades;
     public Integer marcaId;
+    public Integer usuarioId;
 }

@@ -4,22 +4,34 @@ import com.tecno.shop.ucompensar.tecnoshopucompensar.DTOS.ActualizarProductoDTO;
 import com.tecno.shop.ucompensar.tecnoshopucompensar.DTOS.CrearProductoDTO;
 import com.tecno.shop.ucompensar.tecnoshopucompensar.models.Marca;
 import com.tecno.shop.ucompensar.tecnoshopucompensar.models.Producto;
+import com.tecno.shop.ucompensar.tecnoshopucompensar.models.Usuario;
 import com.tecno.shop.ucompensar.tecnoshopucompensar.repositories.ProductoRepository;
+import com.tecno.shop.ucompensar.tecnoshopucompensar.repositories.UsuarioRepository;
+import com.tecno.shop.ucompensar.tecnoshopucompensar.utils.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service()
 public class ProductoService {
 
     @Autowired
     ProductoRepository productoRepository;
+    @Autowired
+    UsuarioService usuarioService;
     public Producto crearProducto(CrearProductoDTO producto){
+
+       Optional<Usuario> usuarioEncontrado = usuarioService.obtenerUsuarioPorId(producto.usuarioId);
+        if(usuarioEncontrado.isEmpty()) {
+            throw new BadRequestException("El usuario no existe");
+        }
         Producto productoGuardar = new Producto();
         Marca marca = new Marca();
+        Usuario usuario = usuarioEncontrado.get();
         marca.setId(producto.marcaId);
         productoGuardar.setTitulo(producto.titulo);
         productoGuardar.setDescripcion(producto.descripcion);
@@ -28,15 +40,18 @@ public class ProductoService {
         productoGuardar.setImagenUrl(producto.imagenUrl);
         productoGuardar.setFecha_publicacion(LocalDateTime.now());
         productoGuardar.setMarca(marca);
+        productoGuardar.setUsuario(usuario);
+
         Producto productoGuardado = this.productoRepository.save(productoGuardar);
 
         return productoGuardado;
     }
 
-    public List<Producto> listarProductos(){
-        return this.productoRepository.findAll();
+    public List<Producto> listarProductos() {
+        List<Producto> productos = this.productoRepository.findAll();
+        return productos
+                ;
     }
-
     public void borrarProductoId(Integer productoId){
         this.productoRepository.deleteById(productoId);
     }

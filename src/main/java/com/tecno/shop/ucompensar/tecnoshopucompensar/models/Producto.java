@@ -1,5 +1,6 @@
 package com.tecno.shop.ucompensar.tecnoshopucompensar.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -34,15 +35,20 @@ public class Producto {
     @Column(nullable = false)
     private LocalDateTime fecha_publicacion;
 
-    @OneToMany(
-            fetch = FetchType.EAGER
-    )
+    @OneToMany
     @JoinColumn(name = "producto_id")
     private List<Comentario> comentarios;
 
-    @OneToOne(
-            fetch = FetchType.EAGER
-    )
+    @ManyToOne(fetch = FetchType.EAGER)
     private Marca marca;
+
+   /* @Column(nullable = false)
+    private Integer usuario_id;*/
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
+
+
 
 }
